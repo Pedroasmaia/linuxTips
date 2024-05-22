@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: giropops
+  name: giropops
+spec:
+  containers:
+    - image: nginx
+      name: webserver
+      volumeMounts: #Definindo Volumes
+        - mountPath: /giropops
+          name: primeiro-emptydir
+      resources:
+        limits: #Máximo
+          cpu: "1" #Porcentagem
+          memory: "128Mi" #128 Megas
+
+        requests: #Mínimo
+          cpu: "0.5"
+          memory: "64Mi" #64 Megas
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+    - name: primeiro-emptydir #Criação do Volume
+      emptyDir:
+        sizeLimit: 256Mi
+status: {}
